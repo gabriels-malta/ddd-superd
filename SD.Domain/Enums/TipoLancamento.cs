@@ -3,6 +3,8 @@
     public enum TipoLancamento
     {
         Debito = 1,
-        Credito = 2
+        Credito = 2,
+        TransferenciaSaida = 3,
+        TransferenciaEntrada = 4
     }
 }

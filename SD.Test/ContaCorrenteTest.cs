@@ -9,26 +9,48 @@ namespace SD.Test
 {
     public class ContaCorrenteTest
     {
-        private IContaCorrenteService ContaCorrenteService;
-        private ContaCorrente conta;
+        private IContaCorrenteService _ContaCorrenteService;
+        private ContaCorrente Conta;
+        private Valor Valor;
+
+        public ContaCorrenteTest()
+        {
+            _ContaCorrenteService = new ContaCorrenteService(new LancamentoService());
+        }
 
         [Fact]
-        public void CriarNovaConta()
+        public void Deposito()
         {
-            conta = new ContaCorrente(9, 100);
+            Conta = new ContaCorrente(9, 100);
+            Valor = new Valor(50);
+            _ContaCorrenteService.Depositar(Conta, Valor);
+            Assert.True(Conta.Saldo == 150);
+        }
 
-            Assert.True(conta.Agencia == 2019);
-            Assert.True(conta.Numero >= 1000 && conta.Numero <= 9999);
-            Assert.True(conta.PossuiSaldoParaSacar((Valor)99));
+        [Fact]
+        public void Saque()
+        {
+            Conta = new ContaCorrente(9, 100);
+            Valor = new Valor(50);
+            _ContaCorrenteService.Sacar(Conta, Valor);
+            Assert.True(Conta.Saldo == 50);
+        }
+
+        [Fact]
+        public void Transferencia()
+        {
+            var origem = new ContaCorrente(7, 100);
+            var destino = new ContaCorrente(9, 32);
+            _ContaCorrenteService.Transferir(origem, destino, (Valor)68);
+            Assert.True(origem.Saldo == (100 - 68));
         }
 
         [Fact]
         public void MustThrowSaldoInsuficienteException()
         {
-            ContaCorrenteService = new ContaCorrenteService();
-            conta = new ContaCorrente(9, 100);
-
-            Assert.Throws<SaldoInsuficienteException>(() => ContaCorrenteService.Sacar(conta, (Valor)150));
+            Conta = new ContaCorrente(9, 100);
+            Valor = new Valor(150);
+            Assert.Throws<SaldoInsuficienteException>(() => _ContaCorrenteService.Sacar(Conta, Valor));
         }
     }
 }

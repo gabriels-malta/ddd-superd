@@ -29,6 +29,7 @@ namespace SD.WebAPI
         {
             services
                 .AddScoped<IContaCorrenteService, ContaCorrenteService>()
+                .AddScoped<ILancamentoService, LancamentoService>()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

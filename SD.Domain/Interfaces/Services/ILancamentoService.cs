@@ -1,9 +1,10 @@
 ﻿using SD.Domain.Entities;
+using SD.Domain.ValueObjects;
 
 namespace SD.Domain.Interfaces.Services
 {
     public interface ILancamentoService
     {
-        void Registrar(Lancamento lancamento);
+        Transacao Registrar(Lancamento lancamento);
     }
 }

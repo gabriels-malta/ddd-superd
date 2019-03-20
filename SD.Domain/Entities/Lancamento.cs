@@ -1,5 +1,6 @@
 ﻿using SD.Domain.Enums;
 using SD.Domain.ValueObject;
+using SD.Domain.ValueObjects;
 using System;
 
 namespace SD.Domain.Entities
@@ -15,12 +16,24 @@ namespace SD.Domain.Entities
             ContaId = contaId;
             Valor = valor;
             Data = DateTime.Now;
+            Transacao = new Transacao();
         }
 
         public int Id { get; set; }
-        public int ContaId { get; set; }
-        public TipoLancamento Tipo { get; set; }
-        public Valor Valor { get; set; }
-        public DateTime Data { get; set; }
+        public Transacao Transacao { get; private set; }
+        public int ContaId { get; private set; }
+        public TipoLancamento Tipo { get; private set; }
+        public Valor Valor { get; private set; }
+        public DateTime Data { get; private set; }
+
+        public void LinkarTransacao(Transacao transacao) => Transacao = new Transacao(transacao);
+    }
+
+    public static class LancamentoBuilder
+    {
+        public static Lancamento NovoDebito(ContaCorrente conta, Valor valor)
+        {
+            return new Lancamento(TipoLancamento.Debito, conta.Id, valor);
+        }
     }
 }

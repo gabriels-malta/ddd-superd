@@ -17,7 +17,6 @@ namespace SD.Test
         public void AssertEquals()
         {
             Valor v = new Valor(9);
-
             Assert.True(v.Equals(9));
         }
     }

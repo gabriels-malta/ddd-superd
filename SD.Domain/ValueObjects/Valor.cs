@@ -1,11 +1,13 @@
-﻿namespace SD.Domain.ValueObject
+﻿using System;
+
+namespace SD.Domain.ValueObject
 {
     public class Valor
     {
         private decimal _quantia;
 
         #region Constructors
-        public Valor(decimal? quantia) => _quantia = quantia ?? 0; 
+        public Valor(object quantia) => _quantia = Convert.ToDecimal(quantia);
         #endregion
 
         public static implicit operator decimal(Valor valor) => valor._quantia;
@@ -22,7 +24,7 @@
             if (obj == null)
                 return false;
 
-            Valor valor = new Valor((decimal)obj);
+            Valor valor = new Valor(obj);
 
             return _quantia == valor._quantia;
         }

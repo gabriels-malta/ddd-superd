@@ -1,14 +1,15 @@
 ﻿using SD.Domain.Entities;
 using SD.Domain.Interfaces.Services;
-using System;
+using SD.Domain.ValueObjects;
 
 namespace SD.Application.Services
 {
     public class LancamentoService : ILancamentoService
     {
-        public void Registrar(Lancamento lancamento)
+        public Transacao Registrar(Lancamento lancamento)
         {
-            throw new NotImplementedException();
+            //TODO: Repository.Save(lancamento)
+            return lancamento.Transacao;
         }
     }
 }

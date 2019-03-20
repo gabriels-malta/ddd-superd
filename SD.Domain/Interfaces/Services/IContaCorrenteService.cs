@@ -7,5 +7,6 @@ namespace SD.Domain.Interfaces.Services
     {
         void Sacar(ContaCorrente conta, Valor valor);
         void Depositar(ContaCorrente conta, Valor valor);
+        void Transferir(ContaCorrente origem, ContaCorrente destino, Valor valor);
     }
 }

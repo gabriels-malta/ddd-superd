@@ -20,7 +20,7 @@ namespace SD.Persistence.Configurations
 
             builder.Property(x => x.Tipo)
                 .IsRequired()
-                .HasConversion(typeof(string));
+                .HasConversion(typeof(short));
         }
     }
 }
