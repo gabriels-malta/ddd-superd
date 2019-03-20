@@ -6,11 +6,11 @@ namespace SD.Domain.Validators
 {
     public abstract class ContaCorrenteValidator
     {
-        public static void VerificaSaldoAposSaque(ContaCorrente conta, Valor valor)
+        public static void ExisteSaldoParaSaque(ContaCorrente conta, Valor valor)
         {
             var saldo = conta.Saldo - valor;
 
-            if (saldo <= 0)
+            if (saldo < 0)
                 throw new SaldoInsuficienteException();
         }
     }

@@ -7,33 +7,37 @@ namespace SD.Domain.Entities
 {
     public class Lancamento
     {
-        public Lancamento()
-        { }
-
-        public Lancamento(TipoLancamento tipo, int contaId, Valor valor)
+        public Lancamento(TipoLancamento tipo, int contaId, decimal valor)
         {
             Tipo = tipo;
             ContaId = contaId;
-            Valor = valor;
+            Valor = new Valor(valor);
             Data = DateTime.Now;
             Transacao = new Transacao();
         }
 
         public int Id { get; set; }
-        public Transacao Transacao { get; private set; }
-        public int ContaId { get; private set; }
-        public TipoLancamento Tipo { get; private set; }
-        public Valor Valor { get; private set; }
-        public DateTime Data { get; private set; }
+        public Guid Transacao { get; set; }
+        public int ContaId { get; set; }
+        public TipoLancamento Tipo { get; set; }
+        public decimal Valor { get; set; }
+        public DateTime Data { get; set; }
 
         public void LinkarTransacao(Transacao transacao) => Transacao = new Transacao(transacao);
     }
 
     public static class LancamentoBuilder
     {
-        public static Lancamento NovoDebito(ContaCorrente conta, Valor valor)
+        public static Lancamento NovoDebito(this Lancamento lancamento, ContaCorrente conta, Valor valor)
         {
-            return new Lancamento(TipoLancamento.Debito, conta.Id, valor);
+            lancamento = new Lancamento(TipoLancamento.Debito, conta.Id, valor);
+            return lancamento;
+        }
+
+        public static Lancamento AtualizaTransacao(this Lancamento lancamento,Valor valor)
+        {
+            lancamento.LinkarTransacao(new Transacao());
+            return lancamento;
         }
     }
 }

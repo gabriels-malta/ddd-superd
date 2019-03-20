@@ -15,8 +15,7 @@ namespace SD.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(x => x.Saldo)
-                .IsRequired()
-                .HasConversion(typeof(decimal));
+                .IsRequired();
         }
     }
 }

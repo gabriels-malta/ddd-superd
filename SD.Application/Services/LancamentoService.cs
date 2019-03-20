@@ -9,7 +9,7 @@ namespace SD.Application.Services
         public Transacao Registrar(Lancamento lancamento)
         {
             //TODO: Repository.Save(lancamento)
-            return lancamento.Transacao;
+            return new Transacao(lancamento.Transacao);
         }
     }
 }
