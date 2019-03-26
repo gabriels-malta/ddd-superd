@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SD.Application.Services;
+using SD.Domain.Interfaces.Repositories;
 using SD.Domain.Interfaces.Services;
 using SD.Persistence.Context;
+using SD.Persistence.Repositories;
 
 namespace SD.WebAPI
 {
@@ -23,6 +25,7 @@ namespace SD.WebAPI
                 .AddDbContext<SDContext>(options => options.UseInMemoryDatabase("SD_DB"))
                 .AddScoped<IContaCorrenteService, ContaCorrenteService>()
                 .AddScoped<ILancamentoService, LancamentoService>()
+                .AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

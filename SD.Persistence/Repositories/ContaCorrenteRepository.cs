@@ -1,11 +1,10 @@
 ﻿using SD.Domain.Entities;
 using SD.Domain.Interfaces.Repositories;
 using SD.Persistence.Context;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Application.Repositories
+namespace SD.Persistence.Repositories
 {
     public class ContaCorrenteRepository : IContaCorrenteRepository
     {
