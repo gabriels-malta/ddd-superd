@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SD.Domain.Entities;
+﻿using SD.Domain.Entities;
 using SD.Domain.Enums;
 using SD.Domain.Exceptions;
 using SD.Domain.Interfaces.Services;
 using SD.Domain.Validators;
 using SD.Domain.ValueObject;
 using SD.Domain.ValueObjects;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Application.Services
 {

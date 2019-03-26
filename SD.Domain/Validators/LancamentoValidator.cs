@@ -1,5 +1,4 @@
-﻿using System;
-using SD.Domain.Entities;
+﻿using SD.Domain.Entities;
 using SD.Domain.Exceptions;
 using SD.Domain.ValueObject;
 

@@ -1,7 +1,6 @@
 ﻿using SD.Domain.Entities;
 using SD.Domain.Interfaces.Services;
 using SD.Domain.Validators;
-using SD.Domain.ValueObject;
 using SD.Domain.ValueObjects;
 
 namespace SD.Application.Services

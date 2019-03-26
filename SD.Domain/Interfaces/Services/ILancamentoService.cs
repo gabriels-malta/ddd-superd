@@ -1,5 +1,4 @@
 ﻿using SD.Domain.Entities;
-using SD.Domain.ValueObject;
 using SD.Domain.ValueObjects;
 
 namespace SD.Domain.Interfaces.Services
