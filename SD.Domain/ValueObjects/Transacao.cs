@@ -10,5 +10,9 @@ namespace SD.Domain.ValueObjects
         public Transacao(Guid guid) => _transacao = guid;
 
         public static implicit operator Guid(Transacao transacao) => transacao._transacao;
+        public override string ToString()
+        {
+            return _transacao.ToString();
+        }
     }
 }

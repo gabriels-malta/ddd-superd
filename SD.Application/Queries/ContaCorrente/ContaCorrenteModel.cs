@@ -1,4 +1,4 @@
-﻿namespace SD.Application.Queries
+﻿namespace SD.Application.Queries.ContaCorrente
 {
     public class ContaCorrenteModel
     {

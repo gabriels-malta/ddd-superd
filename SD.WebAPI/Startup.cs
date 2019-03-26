@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SD.Application.Commands;
-using SD.Application.Queries;
+using SD.Application.Commands.Transferencia;
+using SD.Application.Queries.ContaCorrente;
+using SD.Application.Queries.Lancamento;
 using SD.Application.Services;
+using SD.Domain.Interfaces.Repositories;
 using SD.Domain.Interfaces.Services;
+using SD.Persistence.Context;
+using SD.Persistence.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SD.WebAPI
@@ -21,10 +26,13 @@ namespace SD.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services
+                .AddDbContext<SDContext>(x => { x.UseInMemoryDatabase("SD_DB"); })
                 .AddScoped<IContaCorrenteService, ContaCorrenteService>()
                 .AddScoped<ILancamentoService, LancamentoService>()
                 .AddScoped<ITransferenciaCommand, TransferenciaCommand>()
                 .AddScoped<IContaCorrenteQuery, ContaCorrenteQuery>()
+                .AddScoped<ILancamentoQuery, LancamentoQuery>()
+                .AddScoped<ILancamentoRepository, LancamentoRepository>()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

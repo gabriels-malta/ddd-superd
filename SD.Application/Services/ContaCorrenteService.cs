@@ -12,17 +12,17 @@ namespace SD.Application.Services
 {
     public class ContaCorrenteService : IContaCorrenteService
     {
-        private readonly ILancamentoService lancamentoService;
+        private readonly ILancamentoService _LancamentoService;
 
-        public ContaCorrenteService(ILancamentoService service)
+        public ContaCorrenteService(ILancamentoService lancamentoService)
         {
-            lancamentoService = service;
+            _LancamentoService = lancamentoService;
         }
 
         public Transacao Depositar(ContaCorrente conta, Valor valor)
         {
             conta.Depositar(valor);
-            return lancamentoService.Registrar(new Lancamento(TipoLancamento.Credito, conta.Id, valor));
+            return _LancamentoService.Registrar(new Lancamento(TipoLancamento.Credito, conta.Id, valor));
         }
 
         public IEnumerable<ContaCorrente> GetAll()
@@ -47,7 +47,7 @@ namespace SD.Application.Services
         {
             ContaCorrenteValidator.ExisteSaldoParaSaque(conta, valor);
             conta.Debitar(valor);
-            return lancamentoService.Registrar(new Lancamento(TipoLancamento.Debito, conta.Id, valor));
+            return _LancamentoService.Registrar(new Lancamento(TipoLancamento.Debito, conta.Id, valor));
         }
 
         public Transacao Transferir(ContaCorrente origem, ContaCorrente destino, Valor valor)
@@ -60,7 +60,7 @@ namespace SD.Application.Services
             var lancamentoSaida = new Lancamento(TipoLancamento.Debito, origem.Id, valor);
             var lancamentoEntrada = new Lancamento(TipoLancamento.Credito, destino.Id, valor);
 
-            return lancamentoService.RegistrarTransferencia(lancamentoEntrada, lancamentoSaida);
+            return _LancamentoService.RegistrarTransferencia(lancamentoEntrada, lancamentoSaida);
         }
     }
 }

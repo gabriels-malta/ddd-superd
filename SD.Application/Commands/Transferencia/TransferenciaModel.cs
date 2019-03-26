@@ -1,4 +1,4 @@
-﻿namespace SD.Application.Commands
+﻿namespace SD.Application.Commands.Transferencia
 {
     public class TransferenciaModel
     {

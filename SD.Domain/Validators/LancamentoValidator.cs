@@ -12,10 +12,11 @@ namespace SD.Domain.Validators
                 throw new TransferenciaInvalidaException("Conta de origem não pode ser igual a conta destino.");
         }
 
-        public static void ValidaValor(Valor valor)
+        public static void ValidaValor(decimal valor)
         {
-            if (!valor.IsValid())
-                throw new TransferenciaInvalidaException($"Valor ({valor.ToString()}) inválido para operação.");
+            var _valor = (Valor)valor;
+            if (!_valor.IsValid())
+                throw new TransferenciaInvalidaException($"Valor ({_valor.ToString()}) inválido para operação.");
         }
 
         public static void VerificarTransferencia(Lancamento origem, Lancamento destino)

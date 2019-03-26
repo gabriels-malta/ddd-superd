@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SD.Application.Commands;
-using SD.Application.Queries;
+using SD.Application.Commands.Transferencia;
+using SD.Application.Queries.ContaCorrente;
 using SD.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -35,8 +35,12 @@ namespace SD.WebAPI.Controllers
         {
             try
             {
-                _TransferenciaCommand.Transferir(transferencia);
-                return Ok("Transferência realizada com sucesso!");
+                var transID = _TransferenciaCommand.Transferir(transferencia);
+                return Ok(new
+                {
+                    message = "Transação realizada com sucesso!",
+                    lancamentoApi = Url.RouteUrl("Lancamento_PorTransaca", new { transacao = transID.ToString() })
+                });
             }
             catch (Exception ex)
             {

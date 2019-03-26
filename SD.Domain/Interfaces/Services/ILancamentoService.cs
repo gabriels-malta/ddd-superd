@@ -1,5 +1,6 @@
 ﻿using SD.Domain.Entities;
 using SD.Domain.ValueObjects;
+using System.Collections.Generic;
 
 namespace SD.Domain.Interfaces.Services
 {
@@ -7,5 +8,6 @@ namespace SD.Domain.Interfaces.Services
     {
         Transacao RegistrarTransferencia(Lancamento origem, Lancamento destino);
         Transacao Registrar(Lancamento lancamento);
+        IEnumerable<Lancamento> GetByTransacao(Transacao transacao);
     }
 }

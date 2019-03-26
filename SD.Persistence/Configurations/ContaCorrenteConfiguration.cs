@@ -15,6 +15,7 @@ namespace SD.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(x => x.Saldo)
+                .HasColumnType("decimal")
                 .IsRequired();
         }
     }

@@ -1,21 +1,34 @@
-﻿using SD.Application.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using SD.Application.Services;
 using SD.Domain.Entities;
 using SD.Domain.Exceptions;
+using SD.Domain.Interfaces.Repositories;
 using SD.Domain.Interfaces.Services;
 using SD.Domain.ValueObject;
+using SD.Persistence.Context;
+using SD.Persistence.Repositories;
 using Xunit;
 
 namespace SD.Test
 {
     public class ContaCorrenteTest
     {
+        private ILancamentoRepository GetLancamentoRepository()
+        {
+            var options = new DbContextOptionsBuilder<SDContext>()
+                .UseInMemoryDatabase(databaseName: "Test_DB")
+                .Options;
+            SDContext context = new SDContext(options);
+            return new LancamentoRepository(context);
+        }
+
         private IContaCorrenteService _ContaCorrenteService;
         private ContaCorrente Conta;
         private Valor Valor;
 
         public ContaCorrenteTest()
         {
-            _ContaCorrenteService = new ContaCorrenteService(new LancamentoService());
+            _ContaCorrenteService = new ContaCorrenteService(new LancamentoService(GetLancamentoRepository()));
         }
 
         [Fact]

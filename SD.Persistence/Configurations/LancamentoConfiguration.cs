@@ -15,11 +15,12 @@ namespace SD.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(x => x.Valor)
+                .HasColumnType("decimal")
                 .IsRequired();
 
             builder.Property(x => x.Tipo)
-                .IsRequired()
-                .HasConversion(typeof(short));
+                .HasColumnType("smallint")
+                .IsRequired();
         }
     }
 }
