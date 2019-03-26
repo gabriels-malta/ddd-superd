@@ -39,8 +39,8 @@ namespace SD.Test
         [Fact]
         public void Transferencia()
         {
-            var origem = new ContaCorrente(7, 100);
-            var destino = new ContaCorrente(9, 32);
+            var origem = new ContaCorrente(7, 100) { Id = 7 };
+            var destino = new ContaCorrente(9, 32) { Id = 19 };
             _ContaCorrenteService.Transferir(origem, destino, (Valor)68);
             Assert.True(origem.Saldo == (100 - 68));
         }

@@ -1,5 +1,6 @@
 ﻿using SD.Domain.Entities;
 using SD.Domain.Interfaces.Services;
+using SD.Domain.Validators;
 using SD.Domain.ValueObjects;
 
 namespace SD.Application.Services
@@ -8,8 +9,16 @@ namespace SD.Application.Services
     {
         public Transacao Registrar(Lancamento lancamento)
         {
-            //TODO: Repository.Save(lancamento)
             return new Transacao(lancamento.Transacao);
+        }
+
+        public void RegistrarTransferencia(Lancamento origem, Lancamento destino)
+        {
+            LancamentoValidator.ValidaOrigemDestino(origem.ContaId, destino.ContaId);
+
+            destino.LinkarTransacao(origem.Transacao);
+
+            LancamentoValidator.VerificarTransferencia(origem, destino);
         }
     }
 }

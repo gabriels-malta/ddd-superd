@@ -23,21 +23,6 @@ namespace SD.Domain.Entities
         public decimal Valor { get; set; }
         public DateTime Data { get; set; }
 
-        public void LinkarTransacao(Transacao transacao) => Transacao = new Transacao(transacao);
-    }
-
-    public static class LancamentoBuilder
-    {
-        public static Lancamento NovoDebito(this Lancamento lancamento, ContaCorrente conta, Valor valor)
-        {
-            lancamento = new Lancamento(TipoLancamento.Debito, conta.Id, valor);
-            return lancamento;
-        }
-
-        public static Lancamento AtualizaTransacao(this Lancamento lancamento,Valor valor)
-        {
-            lancamento.LinkarTransacao(new Transacao());
-            return lancamento;
-        }
+        public void LinkarTransacao(Guid transacao) => Transacao = new Transacao(transacao);
     }
 }
