@@ -52,5 +52,11 @@ namespace SD.Test
             Valor = new Valor(150);
             Assert.Throws<SaldoInsuficienteException>(() => _ContaCorrenteService.Sacar(Conta, Valor));
         }
+
+        [Fact]
+        public void MustThrowContaCorrenteException()
+        {
+            Assert.Throws<ContaCorrenteException>(() => _ContaCorrenteService.GetById(7));
+        }
     }
 }

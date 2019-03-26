@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SD.Application.Commands;
+using SD.Application.Queries;
 using SD.Domain.Entities;
-using SD.Domain.Interfaces.Services;
-using SD.Persistence.Context;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 
 namespace SD.WebAPI.Controllers
@@ -12,18 +12,36 @@ namespace SD.WebAPI.Controllers
     [Route("api/contacorrente")]
     public class ContaCorrenteController : ControllerBase
     {
-        private readonly IContaCorrenteService _ContaCorrenteService;
+        private readonly ITransferenciaCommand _TransferenciaCommand;
+        private readonly IContaCorrenteQuery _ContaCorrenteQuery;
 
-        public ContaCorrenteController(SDContext dContext, IContaCorrenteService contaCorrenteService)
+        public ContaCorrenteController(IContaCorrenteQuery contaCorrenteQuery, ITransferenciaCommand transferenciaCommand)
         {
-            _ContaCorrenteService = contaCorrenteService;
+            _ContaCorrenteQuery = contaCorrenteQuery;
+            _TransferenciaCommand = transferenciaCommand;
         }
 
         [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ContaCorrenteModel[]))]
         public ActionResult<IEnumerable<ContaCorrente>> Get()
         {
-            return Ok(Enumerable.Empty<ContaCorrente>());
+            return Ok(_ContaCorrenteQuery.GetAll());
+        }
+
+        [HttpPost, Route("transferir")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult Transferir([FromBody] TransferenciaModel transferencia)
+        {
+            try
+            {
+                _TransferenciaCommand.Transferir(transferencia);
+                return Ok("Transferência realizada com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿using SD.Domain.Interfaces.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SD.Application.Queries
+{
+    public class ContaCorrenteQuery : IContaCorrenteQuery
+    {
+        private readonly IContaCorrenteService _ContaCorrenteService;
+
+        public ContaCorrenteQuery(IContaCorrenteService contaCorrenteService)
+        {
+            _ContaCorrenteService = contaCorrenteService;
+        }
+
+        public IEnumerable<ContaCorrenteModel> GetAll()
+        {
+            return _ContaCorrenteService.GetAll()
+                .Select(x => new ContaCorrenteModel
+                {
+                    Id = x.Id,
+                    AgCc = $"Agencia: {x.Agencia} / Conta: {x.Numero}",
+                    Saldo = x.Saldo.ToString()
+                });
+        }
+    }
+}

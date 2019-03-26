@@ -14,6 +14,8 @@ namespace SD.Domain.ValueObject
 
         public static explicit operator Valor(decimal? valor) => new Valor(valor);
 
+        public bool IsValid() => _quantia > 0;
+
         public override string ToString()
         {
             return $"R$ {_quantia.ToString("N2")}";

@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SD.Application.Commands;
+using SD.Application.Queries;
 using SD.Application.Services;
-using SD.Domain.Interfaces.Repositories;
 using SD.Domain.Interfaces.Services;
-using SD.Persistence.Context;
-using SD.Persistence.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace SD.WebAPI
 {
@@ -22,16 +21,28 @@ namespace SD.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<SDContext>(options => options.UseInMemoryDatabase("SD_DB"))
                 .AddScoped<IContaCorrenteService, ContaCorrenteService>()
                 .AddScoped<ILancamentoService, LancamentoService>()
-                .AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>()
+                .AddScoped<ITransferenciaCommand, TransferenciaCommand>()
+                .AddScoped<IContaCorrenteQuery, ContaCorrenteQuery>()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services
+                .AddSwaggerGen(x =>
+                {
+                    x.SwaggerDoc("v1", new Info() { Title = "Superdigital API", Version = "v1" });
+                });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Superdigital API v1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

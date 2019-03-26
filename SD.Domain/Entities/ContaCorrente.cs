@@ -19,7 +19,7 @@ namespace SD.Domain.Entities
         public int ClienteId { get; set; }
         public int Agencia { get; set; }
         public int Numero { get; set; }
-        public decimal Saldo { get; set; }
+        public Valor Saldo { get; set; }
 
         public void Debitar(Valor valor) => Saldo -= valor;
 
