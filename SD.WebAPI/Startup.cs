@@ -34,7 +34,7 @@ namespace SD.WebAPI
                 .AddScoped<ILancamentoQuery, LancamentoQuery>()
                 .AddScoped<ILancamentoRepository, LancamentoRepository>()
                 .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services
                 .AddSwaggerGen(x =>

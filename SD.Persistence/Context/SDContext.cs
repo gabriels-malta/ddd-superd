@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SD.Domain.Entities;
+using SD.Persistence.Configurations;
 
 namespace SD.Persistence.Context
 {
@@ -15,7 +16,9 @@ namespace SD.Persistence.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(SDContext).Assembly);
+            modelBuilder.ApplyConfiguration(new ContaCorrenteConfiguration());
+            modelBuilder.ApplyConfiguration(new LancamentoConfiguration());
+            //modelBuilder.ApplyConfigurationsFromAssembly(typeof(SDContext).Assembly);
         }
     }
 }
